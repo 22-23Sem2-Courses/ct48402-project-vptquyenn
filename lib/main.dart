@@ -22,9 +22,14 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        fontFamily: 'Lato',
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.brown,
+        ).copyWith(
+          secondary: Color.fromRGBO(121, 85, 72, 1),
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Shop Children Toy'),
     );
   }
 }
