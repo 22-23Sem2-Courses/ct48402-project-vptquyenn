@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'ui/products/product_detail_screen.dart';
+import 'ui/products/products_manager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +31,11 @@ class MyApp extends StatelessWidget {
           secondary: Color.fromRGBO(121, 85, 72, 1),
         ),
       ),
-      home: const MyHomePage(title: 'Shop Children Toy'),
+      home: SafeArea (
+        child: ProductDetailScreen(
+          ProductsManager().items[0],
+        ),
+      ),
     );
   }
 }
