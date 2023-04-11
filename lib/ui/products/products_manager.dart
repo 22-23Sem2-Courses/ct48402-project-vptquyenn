@@ -37,7 +37,11 @@ class ProductsManager {
       isFavorite: true,
     ),
   ];
-
+ bool isInCart(String id) {
+    // Kiểm tra xem sản phẩm có trong giỏ hàng hay không
+    // Trả về true nếu sản phẩm đã có trong giỏ hàng, ngược lại trả về false
+    return _items.any((item) => item.id== id);
+  }
   int get itemCount {
     return _items.length;
   }
@@ -48,5 +52,12 @@ class ProductsManager {
 
   List<Product> get favoriteItems {
     return _items.where((item) => item.isFavorite).toList();
+  }
+   Product? findById(String id) {
+    try {
+      return _items.firstWhere((item) => item.id == id);
+    } catch (error) {
+      return null;
+    }
   }
 }
