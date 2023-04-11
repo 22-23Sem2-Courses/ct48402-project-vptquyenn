@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../models/cart_item.dart';
 import '../shared/dialog_utils.dart';
+import '/ui/cart/cart_manager.dart';
 
 class CartItemCard extends StatelessWidget {
   final String productId;
@@ -38,14 +39,14 @@ class CartItemCard extends StatelessWidget {
           'Bạn có muốn xóa sản phẩm khỏi giỏ hàng không?',
         );
       },
-      onDismissed: (direction) {
-        print('Đã loại bỏ mặt hàng trong giỏ hàng');
+    onDismissed: (direction) {
+    context.read<CartManager>().removeItem(productId);
       },
-      child: buildItemCard(context),
+       child: buildItemCard(),
     );
   }
 
-  Widget buildItemCard(BuildContext context) {
+  Widget buildItemCard() {
     return Card(
       margin: const EdgeInsets.symmetric(
         horizontal: 15,
