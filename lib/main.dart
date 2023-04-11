@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myproject_app/ui/orders/orders_screen.dart';
 import 'ui/cart/cart_screen.dart';
 
 void main() {
@@ -30,8 +31,8 @@ class MyApp extends StatelessWidget {
           secondary: Color.fromRGBO(121, 85, 72, 1),
         ),
       ),
-      home: SafeArea (
-        child: CartScreen(),
+      home: const SafeArea (
+        child: OrdersScreen(),
       ),
     );
   }
