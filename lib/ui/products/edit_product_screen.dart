@@ -93,7 +93,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,13 +126,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
     );
   }
 
-  TextFormField buildTitleField(){
+  TextFormField buildTitleField() {
     return TextFormField(
       initialValue: _editedProduct.title,
       decoration: const InputDecoration(labelText: 'Title'),
       textInputAction: TextInputAction.next,
       autofocus: true,
-      validator: (value){
+      validator: (value) {
         if (value!.isEmpty) {
           return 'Please provide a value.';
         }
@@ -145,7 +144,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     );
   }
 
-  TextFormField buildPriceField(){
+  TextFormField buildPriceField() {
     return TextFormField(
       initialValue: _editedProduct.price.toString(),
       decoration: const InputDecoration(labelText: 'Price'),
@@ -200,21 +199,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
           margin: const EdgeInsets.only(
             top: 8,
             right: 10,
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-            color: Colors.grey,
           ),
-        ),
-        child: _imageUrlController.text.isEmpty
-          ? const Text('Enter a URL')
-          : FittedBox(
-            child: Image.network(
-              _imageUrlController.text,
-              fit: BoxFit.cover,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: Colors.grey,
             ),
           ),
+          child: _imageUrlController.text.isEmpty
+              ? const Text('Enter a URL')
+              : FittedBox(
+                  child: Image.network(
+                    _imageUrlController.text,
+                    fit: BoxFit.cover,
+                  ),
+                ),
         ),
         Expanded(
           child: buildImageURLField(),

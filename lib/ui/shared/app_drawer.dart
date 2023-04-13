@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myproject_app/ui/screens.dart';
+import 'package:provider/provider.dart';
 
 import '../orders/orders_screen.dart';
 import '../products/user_products_screen.dart';
@@ -15,10 +17,10 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Xin chào bạn!'),
             automaticallyImplyLeading: false,
           ),
-          const Divider(),
+           const Divider(),
           ListTile(
             leading: const Icon(Icons.shop),
-            title: const Text('Cửa Hàng'),
+            title: const Text('Shop'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/');
             },
@@ -28,7 +30,8 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.payment),
             title: const Text('Đặt Hàng'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(OrdersScreen.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(OrdersScreen.routeName);
             },
           ),
           const Divider(),
@@ -38,6 +41,17 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(UserProductsScreen.routeName);
+            },
+          ),
+             const Divider(),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text('Đăng xuất'),
+            onTap: () {
+              Navigator.of(context)
+                ..pop()
+                ..pushReplacementNamed('/');
+              context.read<AuthManager>().logout();
             },
           ),
         ],

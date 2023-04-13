@@ -3,18 +3,23 @@ import 'package:myproject_app/ui/orders/orders_screen.dart';
 import 'ui/cart/cart_screen.dart';
 import 'ui/screens.dart';
 import 'package:provider/provider.dart';
-void main() {
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+Future<void> main() async{
+  await dotenv.load();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
       return MultiProvider(
         providers: [
+          ChangeNotifierProvider(
+            create: (context) => AuthManager(),
+          ),
           ChangeNotifierProvider(
             create: (ctx) => ProductsManager(),
           ),
@@ -25,8 +30,9 @@ class MyApp extends StatelessWidget {
             create: (ctx) => OrdersManager(),
           ),
         ],
-   child: MaterialApp(
-      title: 'Myshop',
+    child: Consumer<AuthManager>(builder: (ctx, authManager, child) {
+       return MaterialApp(
+      title: 'Shop Đồ chơi Trẻ em',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -44,8 +50,15 @@ class MyApp extends StatelessWidget {
           secondary: Color.fromRGBO(121, 85, 72, 1),
         ),
       ),
-     
-      home: const ProductsOverviewScreen(),
+      home: authManager.isAuth
+              ? const ProductsOverviewScreen()
+              : FutureBuilder(
+                  future: authManager.tryAutoLogin(),
+                  builder: (ctx, snapshot) {
+                    return snapshot.connectionState == ConnectionState.waiting
+                        ? const SplashScreen()
+                        : const AuthScreen();
+                  }),
       routes: {
         CartScreen.routeName: (ctx) => const CartScreen(),
         OrdersScreen.routeName: (ctx) => const OrdersScreen(),
@@ -65,11 +78,13 @@ class MyApp extends StatelessWidget {
             );
           }
             return null;
-          },
-        ),
+         },
+        );
+      }),
     );
   }
 }
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
